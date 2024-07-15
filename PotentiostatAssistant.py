@@ -131,6 +131,9 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # Add the user's message to the list of messages
     messages.append({"role": "user", "content": user_message})
+
+    # Add a typing decorator to the bot's response
+    await update.message.reply_chat_action("typing")
     
     # Generate a response using the OpenAI API
     completion = client.chat.completions.create(
@@ -147,6 +150,10 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # Print the messages list
     print(messages,'\n')
+
+    # Remove the typing decorator
+    await update.message.reply_chat_action("cancel")
+
     # Reply the user with the response
     await update.message.reply_text(completion.choices[0].message.content)
     
