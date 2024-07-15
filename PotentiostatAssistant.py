@@ -97,7 +97,7 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         # Check for open instances 
         iv.open_driver()
         # sleep for 1 second
-        sleep(1)
+        sleep(0.5)
         instances = iv.get_active_iviumsoft_instances()
     except:
         instances = []
@@ -105,7 +105,7 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     
     if not instances:
         print("No instances found")
-        sleep(1)
+        sleep(0.5)
         status_list = []
     
     else:
@@ -129,6 +129,9 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Get the user's message
     user_message = update.message.text
 
+    # Log the user's message
+    logger.info(f"User {user_id} said: {user_message}")
+
     # Add the user's message to the list of messages
     messages.append({"role": "user", "content": user_message})
 
@@ -149,7 +152,7 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     globals()[f"{users_dict[user_id]}_messages"] = messages
 
     # Print the messages list
-    print(messages,'\n')
+    # print(messages,'\n')
 
     # Remove the typing decorator
     await update.message.reply_chat_action("cancel")
