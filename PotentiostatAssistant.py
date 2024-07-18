@@ -140,7 +140,7 @@ async def chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     
     # Generate a response using the OpenAI API
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         temperature=1,
         messages=messages
     )
